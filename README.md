@@ -1,1 +1,1 @@
-# vim-matching-statement
+# vim-adaptive-indent
