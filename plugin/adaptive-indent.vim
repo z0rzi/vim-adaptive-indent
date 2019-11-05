@@ -1,7 +1,8 @@
 
 
 function! s:baba()
-    let firstIndentLine = getline(search("^[[:blank:]]", "n"))
+    let firstIndentLine = getline(search('^[^[:blank:]].*\n\+\zs\s\{2,}', ""))
+    
 
     let indent = matchstr(firstIndentLine, '^\s\+\ze\S')
 
