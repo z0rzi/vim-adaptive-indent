@@ -1,7 +1,7 @@
 
 
-function! s:baba()
-    let firstIndentLine = getline(search('^[^[:blank:]].*\n\+\zs\s\{2,}', ""))
+function! s:autoSetIndent()
+    let firstIndentLine = getline(search('^[^[:blank:]].*\n\+\zs\s\{2,}', "n"))
     
 
     let indent = matchstr(firstIndentLine, '^\s\+\ze\S')
@@ -16,4 +16,4 @@ function! s:baba()
     let g:tmp_ind = indent
 endfunction
 
-au BufReadPost * call s:baba()
+au BufReadPost * call s:autoSetIndent()
