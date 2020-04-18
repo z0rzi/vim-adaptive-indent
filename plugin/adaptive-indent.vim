@@ -1,8 +1,6 @@
+function! <SID>AutoSetIndent()
+    let firstIndentLine = getline(search('\v%^((\S.*|\s*[^a-zA-Z{}[\]()._].*)?\n){-}\zs\s+\ze[a-zA-Z{}[\]()._]', 'n'))
 
-
-function! s:autoSetIndent()
-    let firstIndentLine = getline(search('^[^[:blank:]].*\n\+\zs\s\{2,}', "n"))
-    
 
     let indent = matchstr(firstIndentLine, '^\s\+\ze\S')
 
@@ -11,9 +9,10 @@ function! s:autoSetIndent()
         exe "set tabstop=".l." shiftwidth=".l." expandtab"
     elseif indent =~ '\t\+'
         exe "set tabstop=4 shiftwidth=4 noexpandtab"
+    else
+        exe "set tabstop=4 shiftwidth=4 expandtab"
     endif
-
-    let g:tmp_ind = indent
 endfunction
 
-au BufReadPost * call s:autoSetIndent()
+
+command! -bar -nargs=0 AdaptIndent call <SID>AutoSetIndent()
