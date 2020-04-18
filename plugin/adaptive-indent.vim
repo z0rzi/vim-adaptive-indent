@@ -1,6 +1,11 @@
-function! <SID>AutoSetIndent()
-    let firstIndentLine = getline(search('\v%^((\S.*|\s*[^a-zA-Z{}[\]()._].*)?\n){-}\zs\s+\ze[a-zA-Z{}[\]()._]', 'n'))
 
+function! <SID>AutoSetIndent()
+    let view = winsaveview()
+
+    call setpos('.', [0, 1, 1, 0])
+    let acceptedChars = 'a-zA-Z{}[\]()._:<>#"''@'
+                
+    let firstIndentLine = getline(search('\v%^((\s.*|\s*[^'.acceptedChars.'[:blank:]].*|['.acceptedChars.'].*)?\n){-}\zs\s+\ze['.acceptedChars.']', 'n', 200))
 
     let indent = matchstr(firstIndentLine, '^\s\+\ze\S')
 
@@ -12,6 +17,8 @@ function! <SID>AutoSetIndent()
     else
         exe "set tabstop=4 shiftwidth=4 expandtab"
     endif
+
+    call winrestview(view)
 endfunction
 
 
