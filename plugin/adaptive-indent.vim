@@ -35,6 +35,10 @@ function! <SID>AutoSetIndent()
 
     let indents_are_tabs = amounts_of_tabs_indents > amounts_of_space_indents
 
+    if !max_indent
+        let max_indent = 4
+    endif
+
     exe "set tabstop=" . max_indent . " shiftwidth=" . max_indent . " " . (indents_are_tabs?"noexpandtab":"expandtab")
 endfunction
 
