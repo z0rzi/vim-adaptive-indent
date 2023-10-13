@@ -40,6 +40,7 @@ function! <SID>AutoSetIndent()
     endif
 
     exe "set tabstop=" . max_indent . " shiftwidth=" . max_indent . " " . (indents_are_tabs?"noexpandtab":"expandtab")
+    echo &tabstop
 endfunction
 
 
